@@ -89,7 +89,7 @@ resource "aws_security_group_rule" "efs_ingress" {
 }
 
 resource "aws_efs_mount_target" "wordpress_efs" {
-  for_each        = toset(var.subnet_ids)
+  for_each        = toset(var.subnet_ids[*])
   file_system_id  = aws_efs_file_system.wordpress_persistent.id
   subnet_id       = each.value
   security_groups = [aws_security_group.efs_security_group.id]
